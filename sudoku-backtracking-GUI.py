@@ -1,3 +1,6 @@
+import pygame
+import time
+
 def printBoard(grid):
     """
     Printing the Sudoku Board
@@ -15,6 +18,7 @@ def printBoard(grid):
                 print(str(grid[i][j]))
             else:
                 print(str(grid[i][j]),end=' ')
+    print('\n')
 
 def squareGrid(row, col, grid):
     """
@@ -42,6 +46,7 @@ def isComplete(grid):
     return True
 
 def solveGrid(grid):
+    fll()
     """
     Function to solve the grid using backtracking.
     """
@@ -68,37 +73,6 @@ def solveGrid(grid):
                 # Backtracking
                 grid[row][col] = 0
                 return None
-
-grid = []
-grid.append([3, 0, 6, 5, 0, 8, 4, 0, 0])
-grid.append([5, 2, 0, 0, 0, 0, 0, 0, 0])
-grid.append([0, 8, 7, 0, 0, 0, 0, 3, 1])
-grid.append([0, 0, 3, 0, 1, 0, 0, 8, 0])
-grid.append([9, 0, 0, 8, 6, 3, 0, 0, 5])
-grid.append([0, 5, 0, 0, 9, 0, 6, 0, 0])
-grid.append([1, 3, 0, 0, 0, 0, 2, 5, 0])
-grid.append([0, 0, 0, 0, 0, 0, 0, 7, 4])
-grid.append([0, 0, 5, 2, 0, 6, 3, 0, 0])
-
-import pygame
-import time
-
-# Initialize
-
-pygame.init()
-
-# Using comicsans
-myfont = pygame.font.SysFont('comicsans', 50)
-WIDTH, HEIGHT = 900, 900
-win = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Sudoku")
-color = (0, 0, 0)
-
-# Variables for the grid of GUI
-linesinX, linesinY = 9, 9
-gridWidth, gridHeight = WIDTH//linesinX, HEIGHT//linesinY
-
-run = True
 
 def drawSquare():
     # Bold lines for smaller 3x3 grid
@@ -140,11 +114,38 @@ def fll():
     fillNumbers()
     pygame.display.update()
 
+grid = []
+grid.append([3, 0, 6, 5, 0, 8, 4, 0, 0])
+grid.append([5, 2, 0, 0, 0, 0, 0, 0, 0])
+grid.append([0, 8, 7, 0, 0, 0, 0, 3, 1])
+grid.append([0, 0, 3, 0, 1, 0, 0, 8, 0])
+grid.append([9, 0, 0, 8, 6, 3, 0, 0, 5])
+grid.append([0, 5, 0, 0, 9, 0, 6, 0, 0])
+grid.append([1, 3, 0, 0, 0, 0, 2, 5, 0])
+grid.append([0, 0, 0, 0, 0, 0, 0, 7, 4])
+grid.append([0, 0, 5, 2, 0, 6, 3, 0, 0])
+
+
+# Initialize
+pygame.init()
+
+# Using comicsans
+myfont = pygame.font.SysFont('comicsans', 50)
+WIDTH, HEIGHT = 900, 900
+win = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Sudoku")
+color = (0, 0, 0)
+
+# Variables for the grid of GUI
+linesinX, linesinY = 9, 9
+gridWidth, gridHeight = WIDTH//linesinX, HEIGHT//linesinY
+
+run = True
 print("STARTING..")
+printBoard(grid)
 
 while run:
     pygame.time.delay(100)
-    # 100 ms
     for event in pygame.event.get():
         # listen to mouse/kb events.
         if event.type == pygame.QUIT:
@@ -155,6 +156,5 @@ while run:
 
     fll()
     solveGrid(grid)
-    fll()
 
 pygame.quit()
