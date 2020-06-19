@@ -2,7 +2,6 @@ def printBoard(grid):
     """
     Printing the Sudoku Board
     """
-    print("-----------------------")
     for i in range(9):
         if i%3 == 0 and i!=0:
             # Adding two horizontal lines, to separate the squres
@@ -16,7 +15,6 @@ def printBoard(grid):
                 print(str(grid[i][j]))
             else:
                 print(str(grid[i][j]),end=' ')
-    print("-----------------------")
 
 def squareGrid(row, col, grid):
     """
@@ -44,6 +42,9 @@ def isComplete(grid):
     return True
 
 def solveGrid(grid):
+    """
+    Function to solve the grid using backtracking.
+    """
     for row in range(9):
         for col in range(9):    
             # checking the cell
@@ -58,7 +59,7 @@ def solveGrid(grid):
                                 grid[row][col] = possible_answer
                                 if isComplete(grid):
                                     # If the board is solved, print the grid
-                                    # printBoard(grid)
+                                    printBoard(grid)
                                     return True
                                 else:
                                     # Solve the other remaining cells
@@ -82,23 +83,25 @@ grid.append([0, 0, 5, 2, 0, 6, 3, 0, 0])
 import pygame
 import time
 
-# Intitilize
+# Initialize
 
 pygame.init()
-# pygame.font.init()
 
+# Using comicsans
 myfont = pygame.font.SysFont('comicsans', 50)
 WIDTH, HEIGHT = 900, 900
 win = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Sudoku")
+color = (0, 0, 0)
 
+# Variables for the grid of GUI
 linesinX, linesinY = 9, 9
 gridWidth, gridHeight = WIDTH//linesinX, HEIGHT//linesinY
 
 run = True
 
 def drawSquare():
-    color = (0, 0, 0)
+    # Bold lines for smaller 3x3 grid
     x, y = gridWidth*3, 0
     for i in range(2):
         pygame.draw.line(win, (0, 0, 0), (x*(i+1), y), (x*(i+1), HEIGHT), 6)
@@ -108,9 +111,7 @@ def drawSquare():
 
 def fillNumbers():
     h, w = len(grid), len(grid[0])
-    color = (0, 0, 0)
     x, y = 40, 30
-
     for row in range(h):
         for col in range(w):
             text = str(grid[row][col])
@@ -148,7 +149,6 @@ while run:
         # listen to mouse/kb events.
         if event.type == pygame.QUIT:
             print("ENDING...")
-            print("\n")
             run = False
 
     keys = pygame.key.get_pressed()
